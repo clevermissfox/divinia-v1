@@ -23,8 +23,8 @@
 
   /* COLORS + BG-COLORS */
   --clr-primary: var(--clr-neutral-100);
-  --clr-accent: #a253f2;
-  --clr-accent-alpha: hsla(270, 86%, 64%, 0.8);
+  --clr-accent: #935cca;
+  --clr-accent-alpha: hsla(270, 51%, 58%, 0.7);
   --clr-neutral-100: oklch(100% 0 0);
   --clr-neutral-900: oklch(0% 0 0);
 
@@ -619,10 +619,16 @@ h3 {
   container-type: inline-size;
 }
 
+.wrapper {
+  margin-inline: auto;
+  width: min(100%, 100ch);
+}
+
 .card {
   background-color: var(--clr-bg-card);
   padding: var(--padding-default);
   border-radius: var(--br-default);
+  border: 1px solid var(--clr-accent-alpha);
 }
 
 /* PROJECT SPECIFIC STYLES */
@@ -635,7 +641,7 @@ h3 {
   padding: 0.5em 1.2em;
   font-size: 1.1em;
   background-color: var(--clr-accent);
-  border: 1px solid #c183ff;
+  border: 1px solid var(--clr-accent-alpha);
   border-radius: 0.25em;
   min-width: fit-content;
 }

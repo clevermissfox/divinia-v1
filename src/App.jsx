@@ -58,6 +58,7 @@ function getNextOptions(stage, choices) {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(state.choices);
 
   const handleChoice = (choice) => {
     dispatch({ type: "MAKE_CHOICE", payload: choice });
@@ -65,18 +66,11 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="wrapper">
         {state.stage < 3 ? (
-          <>
-            <ChoiceStage
-              options={state.currentOptions}
-              onSelect={handleChoice}
-            />{" "}
-          </>
+          <ChoiceStage options={state.currentOptions} onSelect={handleChoice} />
         ) : (
-          <>
-            <ResultsScreen choices={state.choices} />{" "}
-          </>
+          <ResultsScreen choices={state.choices} sign="Leo" />
         )}
       </div>
     </>
