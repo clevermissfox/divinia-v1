@@ -65,13 +65,18 @@ function App() {
 
   return (
     <>
-      <h1 className="ta-cen">Make a choice</h1>
-
       <div>
         {state.stage < 3 ? (
-          <ChoiceStage options={state.currentOptions} onSelect={handleChoice} />
+          <>
+            <ChoiceStage
+              options={state.currentOptions}
+              onSelect={handleChoice}
+            />{" "}
+          </>
         ) : (
-          <ResultsScreen choices={state.choices} />
+          <>
+            <ResultsScreen choices={state.choices} />{" "}
+          </>
         )}
       </div>
     </>

@@ -1,3 +1,3 @@
 export default function ResultsScreen() {
-  return <p>Your results are</p>;
+  return <h1 className="ta-cen">Your results are...</h1>;
 }

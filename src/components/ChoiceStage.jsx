@@ -3,10 +3,10 @@ import Choice from "./Choice";
 export default function ChoiceStage({ options, onSelect }) {
   return (
     <>
-      <p>Choice Stage</p>
-      <ul className="choices-list">
+      <h1 className="ta-cen">Make your choice...</h1>
+      <ul className="choices-list margin-bs-1">
         {options.map((option) => (
-          <li key={option}>
+          <li key={option} className="choices-option">
             <Choice choice={option} onSelect={() => onSelect(option)} />
           </li>
         ))}
