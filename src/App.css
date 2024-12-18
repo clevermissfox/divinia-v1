@@ -645,3 +645,15 @@ h3 {
   border-radius: 0.25em;
   min-width: fit-content;
 }
+
+.btn-choice {
+  display: grid;
+  gap: 1em;
+  justify-content: center;
+
+  & .img-wrapper {
+    width: min(100%, 12ch);
+    border-radius: 0.25em;
+    overflow: hidden;
+  }
+}
