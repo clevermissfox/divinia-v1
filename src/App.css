@@ -40,6 +40,10 @@
   interpolate-size: allow-keywords;
 }
 
+html {
+  color-scheme: dark;
+}
+
 /* @media (prefers-color-scheme: dark) {
     :root {
         --clr-primary: #;
@@ -542,6 +546,10 @@ button {
 
 /* OTHER UTILITIES */
 
+.br-default {
+  border-radius: var(--br-default);
+}
+
 .desat {
   opacity: 0.7;
 }
@@ -638,7 +646,9 @@ h3 {
   gap: 1em;
 }
 
-.choices-option button {
+/* BUTTONS AND FORMS */
+
+:is(.choices-option button, .btn-submit, .btn-primary) {
   padding: 0.5em 1.2em;
   font-size: 1.1em;
   background-color: var(--clr-accent);
@@ -656,5 +666,26 @@ h3 {
     width: min(100%, 12ch);
     border-radius: 0.25em;
     overflow: hidden;
+  }
+}
+
+.btn-signout {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+}
+
+.input-wrapper {
+  border-radius: var(--br-default);
+  border: 1px solid currentColor;
+  cursor: text;
+
+  &:has(input:focus) {
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+
+  & > input {
+    border: none;
+    outline: none;
   }
 }

@@ -1,7 +1,10 @@
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import "./App.css";
 import ChoiceStage from "./components/ChoiceStage";
 import ResultsScreen from "./components/ResultsScreen";
+import AuthForm from "./components/AuthForm";
+import { auth } from "./config/firebaseClient";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const allOptions = {
   0: ["candlestick", "bookshelf", "sword"],
@@ -56,9 +59,34 @@ function getNextOptions(stage, choices) {
   return [];
 }
 
+{
+  /* Handle user sign out */
+}
+function handleSignOut() {
+  signOut(auth).catch((error) => {
+    console.error("Error signing out:", error);
+  });
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+
+  console.log("form submitted", formData);
+}
+
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state.choices);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser); // Set the user if logged in, null otherwise
+    });
+    // Cleanup subscription on component unmount
+    return () => unsubscribe();
+  }, []);
 
   const handleChoice = (choice) => {
     dispatch({ type: "MAKE_CHOICE", payload: choice });
@@ -67,10 +95,34 @@ function App() {
   return (
     <>
       <div className="wrapper">
-        {state.stage < 3 ? (
-          <ChoiceStage options={state.currentOptions} onSelect={handleChoice} />
+        {user ? (
+          <>
+            {/* Render Sign Out button */}
+            <button
+              onClick={handleSignOut}
+              aria-label="Sign out"
+              title="Sign out"
+              className="btn-signout"
+            >
+              <i
+                className="fa-solid fa-arrow-right-from-bracket"
+                aria-hidden="true"
+              ></i>
+            </button>
+
+            {/* Render ChoiceStage or ResultsScreen */}
+            {state.stage < 3 ? (
+              <ChoiceStage
+                options={state.currentOptions}
+                onSelect={handleChoice}
+              />
+            ) : (
+              <ResultsScreen choices={state.choices} sign="Leo" />
+            )}
+          </>
         ) : (
-          <ResultsScreen choices={state.choices} sign="Leo" />
+          // Render AuthForm if user is not logged in
+          <AuthForm isSignUp={true} handleSubmit={(e) => handleSubmit(e)} />
         )}
       </div>
     </>
