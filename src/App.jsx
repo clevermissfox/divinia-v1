@@ -1,10 +1,11 @@
 import { useEffect, useReducer, useState } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "./config/firebaseClient";
 import "./App.css";
 import ChoiceStage from "./components/ChoiceStage";
 import ResultsScreen from "./components/ResultsScreen";
 import AuthForm from "./components/AuthForm";
-import { auth } from "./config/firebaseClient";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import LandingPage from "./components/LandingPage";
 
 const allOptions = {
   0: ["candlestick", "bookshelf", "sword"],
@@ -122,7 +123,12 @@ function App() {
           </>
         ) : (
           // Render AuthForm if user is not logged in
-          <AuthForm isSignUp={true} handleSubmit={(e) => handleSubmit(e)} />
+          <>
+            <h2>Divinia</h2>
+            <p>Where Choice Meets Destiny...</p>
+            {/* <LandingPage />
+            <AuthForm isSignUp={true} handleSubmit={(e) => handleSubmit(e)} /> */}
+          </>
         )}
       </div>
     </>

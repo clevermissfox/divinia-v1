@@ -105,7 +105,7 @@ export default function AuthForm({ isSignUp = false }) {
           </button>
         </div>
       </div>
-      <button type="submit" className="btn-submit">
+      <button type="submit" className="btn btn-submit">
         {isSignUp ? "Sign Up" : "Sign In"}
       </button>
       {error && <p className="small margin-bs-1">{error}</p>}

@@ -647,14 +647,23 @@ h3 {
 }
 
 /* BUTTONS AND FORMS */
+:is(.btn) {
+  --_btn-bg: none;
+  padding: 0.5em 1.2em;
+  border: 1px solid transparent;
+  border-radius: var(--br-default);
+  min-width: fit-content;
+  background-color: var(--_btn-bg);
+}
 
 :is(.choices-option button, .btn-submit, .btn-primary) {
-  padding: 0.5em 1.2em;
+  --_btn-bg: var(--clr-accent);
   font-size: 1.1em;
-  background-color: var(--clr-accent);
-  border: 1px solid var(--clr-accent-alpha);
-  border-radius: 0.25em;
-  min-width: fit-content;
+  border-color: var(--clr-accent-alpha);
+}
+
+.btn-secondary {
+  border-color: currentColor;
 }
 
 .btn-choice {
@@ -673,6 +682,11 @@ h3 {
   position: fixed;
   top: 1em;
   right: 1em;
+  transition: color var(--default-trans-dur);
+
+  &:is(:hover, :focus-visible) {
+    color: var(--clr-accent);
+  }
 }
 
 .input-wrapper {
