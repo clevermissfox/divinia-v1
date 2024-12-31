@@ -3,7 +3,10 @@ import Choice from "./Choice";
 import Anthropic from "@anthropic-ai/sdk";
 
 export default function ChoiceStage({ options, onSelect }) {
-  const [aiResponse, setAiResponse] = useState(null);
+  if (!options) {
+    return <p>No options available</p>;
+  }
+  // const [aiResponse, setAiResponse] = useState(null);
 
   // async function handleSubmit(input) {
   //   const anthropic = new Anthropic({
@@ -24,7 +27,9 @@ export default function ChoiceStage({ options, onSelect }) {
   //     setAiResponse("Sorry there has been an error");
   //   }
   // }
-
+  const choicesToRender = Array.isArray(options)
+    ? options
+    : options.nextOptions || [];
   return (
     <>
       <h1 className="ta-cen">Make your choice...</h1>
@@ -38,13 +43,16 @@ export default function ChoiceStage({ options, onSelect }) {
         <button type="submit">Call Claude</button>
       </form> */}
       <ul className="choices-list margin-bs-1">
-        {options.map((option) => (
-          <li key={option} className="choices-option">
-            <Choice choice={option} onSelect={() => onSelect(option)} />
+        {choicesToRender.map((option) => (
+          <li key={option.id} className="choices-option">
+            <Choice
+              choice={option.scene}
+              onSelect={() => onSelect(option.scene)}
+            />
           </li>
         ))}
       </ul>
-      {aiResponse && <p>{aiResponse}</p>}
+      {/* {aiResponse && <p>{aiResponse}</p>} */}
     </>
   );
 }

@@ -12,7 +12,8 @@ import allOptions from "../data";
 const initialState = {
   stage: 0,
   choices: [],
-  currentOptions: allOptions[0],
+  currentOptions: allOptions,
+  pathID: null,
 };
 
 function reducer(state, action) {
@@ -20,11 +21,20 @@ function reducer(state, action) {
     case "MAKE_CHOICE":
       const newStage = state.stage + 1;
       const newChoices = [...state.choices, action.payload];
+      const newCurrentOptions = getNextOptions(
+        state.currentOptions,
+        action.payload
+      );
+      const newPathID =
+        newStage === 3
+          ? getPathID(newChoices) // Get pathID based on last choice
+          : state.pathID; // Keep existing pathID if not at stage 3
       return {
         ...state,
         stage: newStage,
         choices: newChoices,
-        currentOptions: getNextOptions(newStage, newChoices),
+        currentOptions: newCurrentOptions,
+        pathID: newPathID,
       };
     case "RESET":
       return initialState;
@@ -33,14 +43,65 @@ function reducer(state, action) {
   }
 }
 
-function getNextOptions(stage, choices) {
-  if (stage === 1) {
-    return allOptions[1][choices[0]];
-  } else if (stage === 2) {
-    return allOptions[2][choices[1]];
+function getNextOptions(currentOptions, choice) {
+  if (Array.isArray(currentOptions)) {
+    const selectedOption = currentOptions.find(
+      (option) => option.scene === choice
+    );
+    return selectedOption ? selectedOption.nextOptions : null;
+  } else if (currentOptions && currentOptions.nextOptions) {
+    const selectedOption = currentOptions.nextOptions.find(
+      (option) => option.scene === choice
+    );
+    return selectedOption ? selectedOption.nextOptions : null;
   }
-  return [];
+  return null;
 }
+
+function getPathID(choices) {
+  const lastChoice = choices[choices.length - 1]; // Get the last choice made by the user
+  console.log("Last Choice:", lastChoice); // Log the last choice
+
+  // Search through all options and their nextOptions
+  for (const option of allOptions) {
+    const foundOption = option.nextOptions?.find(
+      (nextOption) => nextOption.scene === lastChoice
+    );
+    if (foundOption) {
+      console.log("Selected Option Found:", foundOption); // Log found option
+      return foundOption.pathID; // Return pathID if found
+    }
+
+    // If nextOptions are nested further, you might need to check deeper levels
+    for (const nextOption of option.nextOptions || []) {
+      const deeperFoundOption = nextOption.nextOptions?.find(
+        (deepNextOption) => deepNextOption.scene === lastChoice
+      );
+      if (deeperFoundOption) {
+        console.log("Deeper Selected Option Found:", deeperFoundOption); // Log found option
+        return deeperFoundOption.pathID; // Return pathID if found
+      }
+    }
+  }
+
+  return null; // Return null if no matching option is found
+}
+
+// function getNextOptions(stage, choices) {
+//   if (stage === 1) {
+//     console.log(allOptions[1][choices[0]]);
+//     return allOptions[1][choices[0]];
+//   } else if (stage === 2) {
+//     const firstChoice = choices[0];
+//     const secondChoice = choices[1];
+//     const thirdOptions = allOptions[2][firstChoice];
+//     const matchingObject = thirdOptions.find(
+//       (obj) => Object.keys(obj)[0] === secondChoice
+//     );
+//     return matchingObject ? matchingObject[secondChoice] : [];
+//   }
+//   return [];
+// }
 
 {
   /* Handle user sign out */
@@ -100,7 +161,11 @@ function App() {
                 onSelect={handleChoice}
               />
             ) : (
-              <ResultsScreen choices={state.choices} sign="Leo" />
+              <ResultsScreen
+                choices={state.choices}
+                pathID={state.pathID}
+                sign="Sagittarius"
+              />
             )}
           </>
         ) : (
@@ -108,8 +173,8 @@ function App() {
           <>
             <h2>Divinia</h2>
             <p>Where Choice Meets Destiny...</p>
-            {/* <LandingPage />
-            <AuthForm isSignUp={true} handleSubmit={(e) => handleSubmit(e)} /> */}
+            {/* <LandingPage /> */}
+            <AuthForm isSignUp={false} handleSubmit={(e) => handleSubmit(e)} />
           </>
         )}
       </div>
