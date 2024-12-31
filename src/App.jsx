@@ -164,7 +164,7 @@ function App() {
               <ResultsScreen
                 choices={state.choices}
                 pathID={state.pathID}
-                sign="Sagittarius"
+                sign="leo"
               />
             )}
           </>
