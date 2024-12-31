@@ -7,25 +7,7 @@ import ResultsScreen from "./components/ResultsScreen";
 import AuthForm from "./components/AuthForm";
 import LandingPage from "./components/LandingPage";
 
-const allOptions = {
-  0: ["candlestick", "bookshelf", "sword"],
-  1: {
-    candlestick: ["mirror", "lamp", "candle"],
-    bookshelf: ["novel", "textbook", "comic"],
-    sword: ["shield", "armor", "helmet"],
-  },
-  2: {
-    mirror: ["look", "break", "ignore"],
-    lamp: ["light", "rub", "sell"],
-    candle: ["light", "melt", "snuff"],
-    novel: ["read", "skim", "close"],
-    textbook: ["study", "flip", "highlight"],
-    comic: ["laugh", "collect", "trade"],
-    shield: ["polish", "bash", "discard"],
-    armor: ["wear", "display", "sell"],
-    helmet: ["don", "examine", "toss"],
-  },
-};
+import allOptions from "../data";
 
 const initialState = {
   stage: 0,
