@@ -164,7 +164,8 @@ function App() {
               <ResultsScreen
                 choices={state.choices}
                 pathID={state.pathID}
-                sign="leo"
+                sign="Sagittarius"
+                // debug why the images arent showing up on live deploy
               />
             )}
           </>
