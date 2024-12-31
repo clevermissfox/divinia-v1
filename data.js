@@ -62,7 +62,7 @@ const allOptions = {
       {
         "Sage's Hermitage": [
           "Cup of herbal tea",
-          "Meditation cushion",
+          "Multicolored meditation cushion",
           "Wooden comb",
         ],
       },
