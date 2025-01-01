@@ -11,7 +11,7 @@ export default function ResultsScreen({ sign, choices, pathID }) {
       <div className="margin-bs-1">
         {result ? ( // Check if a result was found
           <Card
-            cardImg={`src/assets/svgs/icons-signs/icon-sign-${sign.toLowerCase()}.svg`}
+            cardImg={`/assets/svgs/icons-signs/icon-sign-${sign.toLowerCase()}.svg`}
             textContent={`From your choices: ${choicesString} Your ${sign} horoscope: ${result.horoscope} Key Dates:
             ${result.keyDates} Action Steps: ${result.actionSteps}`}
           />
