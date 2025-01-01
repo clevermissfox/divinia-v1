@@ -8,7 +8,7 @@ export default function ResultsScreen({ sign, choices, pathID }) {
   const result = results.find((result) => result.pathID === pathID);
 
   useEffect(() => {
-    import(`../../assets/svgs/icons-signs/icon-sign-${sign.toLowerCase()}.svg`)
+    import(`../assets/svgs/icons-signs/icon-sign-${sign.toLowerCase()}.svg`)
       .then((module) => setImgSrc(module.default))
       .catch((error) => console.error("Error loading SVG:", error));
   }, [sign]);
