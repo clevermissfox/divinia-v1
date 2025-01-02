@@ -9,7 +9,7 @@
   --ff-primary: "SF Pro", system-ui;
   --ff-secondary: "Font Awesome 6 Pro";
 
-  --fw-body: 400;
+  --fw-body: 300;
   --fw-bold: 600;
 
   --fs-h1: 2rem;
@@ -331,6 +331,10 @@ button {
   gap: 0.25em;
 }
 
+.flex-1 {
+  flex: 1;
+}
+
 /* TEXT UTILITIES */
 .xsmall {
   font-size: 0.75em;
@@ -354,6 +358,10 @@ button {
 
 .bold {
   font-weight: var(--fw-bold);
+}
+
+.body-weight {
+  font-weight: var(--fw-body);
 }
 
 .thin {
@@ -432,6 +440,35 @@ button {
 
 .margin-ie-2 {
   margin-inline-end: 2em;
+}
+
+/* 1.5em */
+.margin-1half {
+  margin: 1.5em;
+}
+
+.margin-b-1half {
+  margin-block: 1.5em;
+}
+
+.margin-bs-1half {
+  margin-block-start: 1.5em;
+}
+
+.margin-be-1half {
+  margin-block-end: 1.5em;
+}
+
+.margin-i-1half {
+  margin-inline: 1.5em;
+}
+
+.margin-is-1half {
+  margin-inline-start: 1.5em;
+}
+
+.margin-ie-1half {
+  margin-inline-end: 1.5em;
 }
 
 /* 1em */
@@ -554,6 +591,10 @@ button {
   opacity: 0.7;
 }
 
+.ls-2 {
+  letter-spacing: 2px;
+}
+
 .ls-1 {
   letter-spacing: 1px;
 }
@@ -641,10 +682,6 @@ h3 {
 }
 
 /* PROJECT SPECIFIC STYLES */
-.choices-list {
-  display: flex;
-  gap: 1em;
-}
 
 /* BUTTONS AND FORMS */
 :is(.btn) {
@@ -656,7 +693,7 @@ h3 {
   background-color: var(--_btn-bg);
 }
 
-:is(.choices-option button, .btn-submit, .btn-primary) {
+:is(.btn-submit, .btn-primary) {
   --_btn-bg: var(--clr-accent);
   font-size: 1.1em;
   border-color: var(--clr-accent-alpha);
@@ -703,3 +740,5 @@ h3 {
     outline: none;
   }
 }
+
+/* MEDIA QUERIES */

@@ -8,6 +8,7 @@ import AuthForm from "./components/AuthForm";
 import LandingPage from "./components/LandingPage";
 
 import allOptions from "../data";
+import IconsSigns from "./components/IconsSigns";
 
 const initialState = {
   stage: 0,
@@ -165,7 +166,6 @@ function App() {
                 choices={state.choices}
                 pathID={state.pathID}
                 sign="Sagittarius"
-                // debug why the images arent showing up on live deploy
               />
             )}
           </>
@@ -175,7 +175,12 @@ function App() {
             <h2>Divinia</h2>
             <p>Where Choice Meets Destiny...</p>
             {/* <LandingPage /> */}
-            <AuthForm isSignUp={false} handleSubmit={(e) => handleSubmit(e)} />
+            <div className="margin-bs-1">
+              <AuthForm
+                isSignUp={false}
+                handleSubmit={(e) => handleSubmit(e)}
+              />
+            </div>
           </>
         )}
       </div>

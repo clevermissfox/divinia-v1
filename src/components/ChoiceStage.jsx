@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Choice from "./Choice";
 import Anthropic from "@anthropic-ai/sdk";
 
@@ -32,7 +32,7 @@ export default function ChoiceStage({ options, onSelect }) {
     : options.nextOptions || [];
   return (
     <>
-      <h1 className="ta-cen">Make your choice...</h1>
+      <h1 className="ta-cen body-weight ls-1">Make your choice...</h1>
       {/* <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -42,11 +42,12 @@ export default function ChoiceStage({ options, onSelect }) {
         <input type="text" id="input" />
         <button type="submit">Call Claude</button>
       </form> */}
-      <ul className="choices-list margin-bs-1">
+      <ul className="choices-list margin-bs-1 row gap-1 fw-wrap">
         {choicesToRender.map((option) => (
-          <li key={option.id} className="choices-option">
+          <li key={option.id} className="choices-option card flex-1">
             <Choice
               choice={option.scene}
+              description={option.description}
               onSelect={() => onSelect(option.scene)}
             />
           </li>
