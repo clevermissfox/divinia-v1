@@ -695,8 +695,22 @@ h3 {
 
 :is(.btn-submit, .btn-primary) {
   --_btn-bg: var(--clr-accent);
+  transition: background-color var(--default-trans-dur),
+    filter var(--default-trans-dur);
   font-size: 1.1em;
   border-color: var(--clr-accent-alpha);
+}
+
+@supports not (color: rgb(from white r g b)) {
+  :is(.btn-submit, .btn-primary):is(:hover, :focus-visible) {
+    filter: brightness(120%);
+  }
+}
+/* unnecessary but fun relative colors! */
+@supports (color: rgb(from white r g b)) {
+  :is(.btn-submit, .btn-primary):is(:hover, :focus-visible) {
+    --_btn-bg: oklch(from var(--clr-accent) calc(l * 1.2) c h);
+  }
 }
 
 .btn-secondary {
@@ -726,6 +740,10 @@ h3 {
   }
 }
 
+[id="btn-visibility-icon"] {
+  width: 1.5em;
+}
+
 .input-wrapper {
   border-radius: var(--br-default);
   border: 1px solid currentColor;
@@ -740,5 +758,16 @@ h3 {
     outline: none;
   }
 }
+/* CONDITIONAL STYLES */
+.wrapper:has(> ul.signs-list) {
+  position: relative;
 
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1em;
+    background-color: var(--clr-bg-body);
+    z-index: -3;
+  }
+}
 /* MEDIA QUERIES */

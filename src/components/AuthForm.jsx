@@ -94,6 +94,7 @@ export default function AuthForm({ isSignUp = false }) {
           <button
             onClick={togglePasswordVisibility}
             className="margin-is-auto"
+            id="btn-visibility-icon"
             aria-label="Toggle Password Visibility"
             type="button"
           >

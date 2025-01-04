@@ -53,6 +53,7 @@ export default function ChoiceStage({ options, onSelect }) {
           </li>
         ))}
       </ul>
+
       {/* {aiResponse && <p>{aiResponse}</p>} */}
     </>
   );

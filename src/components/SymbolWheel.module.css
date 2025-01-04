@@ -1,0 +1,130 @@
+@property --_rotation {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --_translate-x {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --_translate-y {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0;
+}
+
+:root {
+  --gradient: linear-gradient(blueviolet, violet, purple, yellow) center center/
+    cover fixed;
+}
+
+.signs-list {
+  list-style: "";
+  padding: 0;
+  margin-inline: auto;
+  display: grid;
+  place-content: center;
+  grid-template-areas: "child";
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateX(-40%) translateY(-50%);
+  z-index: -5;
+
+  &:has(.signs-item:hover) .signs-item {
+    animation-play-state: paused;
+  }
+}
+
+.signs-item {
+  --_circle-size: 100px;
+  grid-area: child;
+  aspect-ratio: 1;
+  inline-size: var(--_circle-size);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  background-color: #272727;
+  color: #fff;
+  outline: 2px solid oklch(100% 0 0 / 10%);
+  position: relative;
+
+  & svg {
+    width: var(--_circle-size) * 0.75;
+  }
+}
+
+.signs-item {
+  --_offset: 15em;
+  --_degrees: 0deg;
+  --_rotation: 0deg;
+  --_translate-x: calc(cos(var(--_degrees)) * var(--_offset));
+  --_translate-y: calc(sin(var(--_degrees)) * var(--_offset));
+  top: calc((var(--_parent-size) / 2) / 2);
+  left: calc((var(--_parent-size) / 2) / 2);
+  transition: all 500ms;
+  transform: rotate(var(--_rotation))
+    translate(var(--_translate-x), var(--_translate-y))
+    rotate(calc(-1 * var(--_rotation)));
+  animation: rotate-item 30s linear infinite;
+}
+
+.signs-item:nth-of-type(1) {
+  --_degrees: 1 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(2) {
+  --_degrees: 2 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(3) {
+  --_degrees: 3 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(4) {
+  --_degrees: 4 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(5) {
+  --_degrees: 5 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(6) {
+  --_degrees: 6 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(7) {
+  --_degrees: 7 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(8) {
+  --_degrees: 8 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(9) {
+  --_degrees: 9 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(10) {
+  --_degrees: 10 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(11) {
+  --_degrees: 11 * 360deg / 12;
+}
+
+.signs-item:nth-of-type(12) {
+  --_degrees: 12 * 360deg / 12;
+}
+
+@keyframes rotate-item {
+  from {
+    --_rotation: 0deg;
+  }
+  to {
+    --_rotation: 360deg;
+  }
+}
