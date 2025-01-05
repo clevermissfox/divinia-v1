@@ -17,6 +17,7 @@ export default function ResultsScreen({ sign, choices, pathID }) {
                 <IconsSigns
                   id={sign}
                   width={80}
+                  fill="currentColor"
                   style={{ marginInline: "auto", marginBlockStart: "1em" }}
                 />
               </>
