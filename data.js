@@ -1,107 +1,34 @@
-// const allOptions = {
-//   0: ["Sunlit Path", "Moonlit Grove", "Starry Ascent"],
-//   1: {
-//     "Sunlit Path": [
-//       "Traveler's Tent",
-//       "Artisan's Workshop",
-//       "Scholar's Caravan",
-//     ],
-//     "Moonlit Grove": ["Crystal Pool", "Whispering Falls", "Ancient Tree"],
-//     "Starry Ascent": [" Observatory", "Library", "Sage's Hermitage"],
-//   },
-//   2: {
-//     "Sunlit Path": [
-//       {
-//         "Traveler's Tent": [
-//           "Worn leather-bound journal",
-//           "Hand-woven tapestry",
-//           "Divination tools",
-//         ],
-//       },
-//       {
-//         "Artisan's Workshop": [
-//           "Bow and arrow",
-//           "Paints and brushes",
-//           "Musical instrument",
-//         ],
-//       },
-//       {
-//         "Scholar's Caravan": [
-//           "Ancient map",
-//           "Magnifying glass",
-//           "Quill and ink",
-//         ],
-//       },
-//     ],
-//     "Moonlit Grove": [
-//       {
-//         "Crystal Pool": [
-//           "Smooth, polished stone",
-//           "Dreamcatcher",
-//           "Vial of fragrant oil",
-//         ],
-//       },
-//       { "Whispering Falls": ["Feather", "Seashell", "Wildflower"] },
-//       {
-//         "Ancient Tree": [
-//           "Fertile soil",
-//           "Bark with symbolic carving",
-//           "Bird's nest",
-//         ],
-//       },
-//     ],
-//     "Starry Ascent": [
-//       { " Observatory": ["Telescope", "Star chart", "Meteorite"] },
-//       {
-//         Library: [
-//           "Book of philosophy",
-//           "Scroll with ancient script",
-//           "Blank journal",
-//         ],
-//       },
-//       {
-//         "Sage's Hermitage": [
-//           "Cup of herbal tea",
-//           "Multicolored meditation cushion",
-//           "Wooden comb",
-//         ],
-//       },
-//     ],
-//   },
-// };
-
 const allOptions = [
   {
     id: 1,
     scene: "Sunlit Path",
     description:
-      "A sunlit path: This suggests a journey of clarity, optimism, and forward progress.",
+      "...illuminated by golden rays that seem to pulse with optimistic energy.",
     nextOptions: [
       {
         id: 11,
         scene: "Traveler's Tent",
-        description:
-          "A traveler's tent bathed in sunlight: This suggests a temporary respite on a journey of clarity and progress, a place to gather strength and plan the next steps of your bright path.",
+        description: "...whose sun-bleached canvas glows with golden light.",
         nextOptions: [
           {
             id: 111,
             scene: "Worn leather-bound journal",
             description:
-              "A worn leather-bound journal: This suggests documenting your journey, reflecting on your experiences, and finding wisdom in your past.",
+              "...its pages softened by time and filled with countless tales. The leather cover bears the marks of many journeys.",
             pathID: 111111,
           },
           {
             id: 112,
             scene: "Hand-woven tapestry",
             description:
-              "A hand-woven tapestry: This suggests the intricate weaving of your life's experiences, creating a rich and meaningful story.",
+              "...catches the filtered sunlight, its intricate patterns shifting with subtle meaning. The threads shimmer with rich colors that seem to move as you watch.",
             pathID: 111112,
           },
           {
             id: 113,
             scene: "Divination tools",
             description:
-              "Divination tools: This suggests seeking guidance from within and exploring the hidden potential of your future.",
+              "...gleaming with purpose in the golden light, promising insights into the hidden currents of your path and glimpses of potential futures.",
             pathID: 111113,
           },
         ],
@@ -110,27 +37,27 @@ const allOptions = [
         id: 12,
         scene: "Artisan's Workshop",
         description:
-          "An artisan's workshop illuminated by sunlight: This suggests a place of inspired creation and tangible manifestation of your optimistic vision, where ideas take form in the light of day.",
+          "...whose wooden door stands invitingly open, tools and materials visible within.",
         nextOptions: [
           {
             id: 121,
             scene: "Bow and arrow",
             description:
-              "A finely crafted bow and arrow: This suggests aiming high and pursuing your goals with focus and precision.",
+              "...of fine craftsmanship gleam on the workbench, radiating focused intent.",
             pathID: 112121,
           },
           {
             id: 122,
             scene: "Paints and brushes",
             description:
-              "A vibrant set of paints and brushes:: This suggests expressing your creativity and sharing your vision with the world.",
+              "...lie arranged on a table, their colors alive in the forge-light.",
             pathID: 112122,
           },
           {
             id: 123,
             scene: "Musical instrument",
             description:
-              "A musical instrument: This suggests finding harmony and balance in your life, and communicating through creative expression.",
+              "...stands in the corner, its strings aglow, poised to be played.",
             pathID: 112123,
           },
         ],
@@ -139,27 +66,26 @@ const allOptions = [
         id: 13,
         scene: "Scholar's Caravan",
         description:
-          "A scholar's caravan bathed in sunlight: This suggests a journey of illuminated learning and intellectual exploration, where knowledge is sought with clarity and purpose.",
+          "...whose open doorway revealing shelves lined with books and scrolls.",
         nextOptions: [
           {
             id: 131,
             scene: "Ancient map",
-            description:
-              "An ancient map with unmarked territories:This suggests venturing into the unknown and exploring new areas of knowledge.",
+            description: "...revealing unknown lands of mystery.",
             pathID: 113131,
           },
           {
             id: 132,
             scene: "Magnifying glass",
             description:
-              "A magnifying glass: This suggests paying close attention to details and seeking deeper understanding.",
+              "...sits on a velvet cushion, dispersing light in mysterious patterns.",
             pathID: 113132,
           },
           {
             id: 133,
             scene: "Quill and ink",
             description:
-              "A quill and ink: This suggests recording your discoveries and sharing your knowledge through writing.",
+              "...set on a small writing desk, the ink shimmering with possibility.",
             pathID: 113132,
           },
         ],
@@ -169,34 +95,33 @@ const allOptions = [
   {
     id: 2,
     scene: "Moonlit Grove",
-    description:
-      "A moonlit grove: This suggests a journey of introspection, intuition, and connection to the subconscious.",
+    description: "...bathed in silver light-where shadows hold secrets.",
     nextOptions: [
       {
         id: 11,
         scene: "Crystal Pool",
         description:
-          "A crystal pool reflecting the moonlight: This suggests a deep dive into your subconscious, where emotions and intuition are amplified in the tranquil glow of the moon.",
+          "...beckons, its surface mirror-smooth and reflecting the moon in mesmerizing patterns.",
         nextOptions: [
           {
             id: 111,
             scene: "Smooth, polished stone",
             description:
-              "A smooth, polished stone: This suggests grounding yourself and finding inner peace.",
+              "...glints beneath the water's surface, pulsing with inner moonlight.",
             pathID: 211111,
           },
           {
             id: 112,
             scene: "Dreamcatcher",
             description:
-              "A dreamcatcher: This suggests paying attention to your dreams and the messages they hold.",
+              "...sways in the misty air, its web gathering moonbeams like dew.",
             pathID: 211112,
           },
           {
             id: 113,
             scene: "Vial of fragrant oil",
             description:
-              "A vial of fragrant oil: This suggests using aromatherapy and self-care practices to enhance your intuition.",
+              "...shimmers with pearlescent colors that mirror the pool.",
             pathID: 211113,
           },
         ],
@@ -205,27 +130,27 @@ const allOptions = [
         id: 12,
         scene: "Whispering Falls",
         description:
-          "Whispering falls bathed in moonlight: This suggests a place of gentle introspection and emotional release, where the whispers of your inner voice are heard in the quiet of the night.",
+          "...cascade nearby, its silver waters creating a veil of mist that glows in the moonlight, carrying whispered secrets.",
         nextOptions: [
           {
             id: 121,
             scene: "Feather",
             description:
-              "A feather: This suggests listening to your inner voice and trusting your instincts.",
+              "...floats impossibly in the mist, its silver-tipped edges dancing with moonlight.",
             pathID: 212121,
           },
           {
             id: 122,
             scene: "Seashell",
             description:
-              "A seashell: This suggests connecting with your emotions and finding flow in your life.",
+              "...gleams with pearlescent light, its spiral form echoing the falls' eternal song.",
             pathID: 212122,
           },
           {
             id: 123,
             scene: "Wildflower",
             description:
-              "A wildflower: This suggests embracing your natural beauty and allowing yourself to bloom.",
+              "...blooms in the moonlight, its petals luminous with otherworldly radiance.",
             pathID: 212123,
           },
         ],
@@ -234,27 +159,27 @@ const allOptions = [
         id: 13,
         scene: "Ancient Tree",
         description:
-          "An ancient tree standing silent in the moonlit grove: This suggests a profound connection to wisdom, roots of memory, and the timeless cycles of growth, death, and rebirth.",
+          "...rises against the starlit sky, its massive trunk and sprawling branches emanating an aura of wisdom.",
         nextOptions: [
           {
             id: 131,
             scene: "Fertile soil",
             description:
-              "A handful of fertile soil: This suggests nurturing your growth and connecting with your roots.",
+              "...glows with moonlit potential, dark and rich with ancient power.",
             pathID: 213131,
           },
           {
             id: 132,
             scene: "Bark with symbolic carving",
             description:
-              "A piece of bark with a symbolic carving: This suggests seeking wisdom from nature and honoring ancient traditions.",
+              "...pulses with silvery light, its mysterious patterns shifting in the shadows.",
             pathID: 213132,
           },
           {
             id: 133,
             scene: "Bird's nest",
             description:
-              "A bird's nest: This suggests creating a safe and nurturing space for yourself and your loved ones.",
+              "...woven from moonbeams rests in a hollow, gleaming with protective energy.",
             pathID: 213133,
           },
         ],
@@ -265,33 +190,33 @@ const allOptions = [
     id: 3,
     scene: "Starry Ascent",
     description:
-      "A starry ascent: This suggests a journey of expanding horizons, seeking knowledge, and connecting with the cosmos.",
+      "...spiraling upward, illuminated by stars that seem close enough to touch.",
     nextOptions: [
       {
         id: 11,
         scene: "Observatory",
         description:
-          "An observatory reaching towards the stars: This suggests a focused pursuit of cosmic knowledge and a desire to understand the universe from a higher perspective, a place where the vastness of space is explored with scientific precision.",
+          "...stands proud against the star-filled sky, its great dome open to the cosmos above.",
         nextOptions: [
           {
             id: 111,
             scene: "Telescope",
             description:
-              "A telescope: This suggests expanding your perspective and looking at the bigger picture.",
+              "...of polished brass and crystal , its lens aimed at the infinite cosmos.",
             pathID: 311111,
           },
           {
             id: 112,
             scene: "Star chart",
             description:
-              "A star chart: This suggests learning about the cosmos and understanding your place in the universe.",
+              "...glows with its own inner light, constellations shifting across its surface.",
             pathID: 311112,
           },
           {
             id: 113,
             scene: "Meteorite",
             description:
-              "A meteorite: This suggests connecting with the vastness of space and the mysteries it holds.",
+              "...pulses with otherworldly energy, reflecting starlight like a captured galaxy.",
             pathID: 311113,
           },
         ],
@@ -300,27 +225,27 @@ const allOptions = [
         id: 12,
         scene: "Library",
         description:
-          "A library filled with starlight: This suggests a quest for intellectual and spiritual understanding, where ancient wisdom and profound insights are discovered under the guiding light of the cosmos.",
+          "...shimmers with otherworldly light, its windows alive with shifting constellations.",
         nextOptions: [
           {
             id: 121,
             scene: "Book of philosophy",
             description:
-              "A worn, leather-bound book of philosophy: This suggests delving into complex ideas and expanding your understanding of the world.",
+              "...bound in worn leather, its pages glowing with cosmic insight.",
             pathID: 312121,
           },
           {
             id: 122,
             scene: "Scroll with ancient script",
             description:
-              "A scroll with ancient script: This suggests learning from the wisdom of the past and connecting with ancient traditions.",
+              "...floats in the air, inscribed with symbols shifting like living constellations.",
             pathID: 312122,
           },
           {
             id: 123,
             scene: "Blank journal",
             description:
-              "A blank journal: This suggests recording your thoughts and insights as you embark on your intellectual journey.",
+              "...waits expectantly, its pristine pages shimmering with possibility.",
             pathID: 312123,
           },
         ],
@@ -329,27 +254,27 @@ const allOptions = [
         id: 13,
         scene: "Sage's Hermitage",
         description:
-          "A sage's hermitage bathed in starlight: This suggests a retreat for deep contemplation and spiritual connection, where inner peace and cosmic awareness are found in the quiet solitude of the night.",
+          "...floats serenely among the stars, paper lanterns glowing like newly born stars.",
         nextOptions: [
           {
             id: 131,
             scene: "Cup of herbal tea",
             description:
-              "A cup of herbal tea: This suggests taking time for reflection and introspection.",
+              "...steams on a low table, its aromatic vapors spiraling upward.",
             pathID: 313131,
           },
           {
             id: 132,
             scene: "Meditation cushion",
             description:
-              "A meditation cushion: This suggests practicing mindfulness and cultivating inner peace.",
+              "...rests in a pool of starlight, worn smooth by years of peaceful contemplation.",
             pathID: 313132,
           },
           {
             id: 133,
             scene: "Wooden comb",
             description:
-              "A simple wooden comb: This suggests clearing your mind and focusing your energy on your spiritual growth.",
+              "..lies on a silk cloth, its teeth carved with celestial symbols that seem to shift in the light.",
             pathID: 313133,
           },
         ],

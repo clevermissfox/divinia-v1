@@ -10,6 +10,7 @@ import LandingPage from "./components/LandingPage";
 import allOptions from "../data";
 import IconsSigns from "./components/IconsSigns";
 import SymbolWheel from "./components/SymbolWheel";
+import UserProfile from "./components/UserProfile";
 
 const initialState = {
   stage: 0,
@@ -155,6 +156,7 @@ function App() {
                 aria-hidden="true"
               ></i>
             </button>
+            {/* <UserProfile /> */}
 
             {/* Render ChoiceStage or ResultsScreen */}
             {state.stage < 3 ? (

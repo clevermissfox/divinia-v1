@@ -88,7 +88,11 @@ export default function AuthForm({ isSignUp = false }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             onBlur={() => setShowPassword(false)}
-            placeholder={showPassword ? "password" : "*******"}
+            placeholder={
+              showPassword
+                ? "password"
+                : "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
+            }
             autoComplete={isSignUp ? "new-password" : "current-password"}
           />
           <button
