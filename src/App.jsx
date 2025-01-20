@@ -156,10 +156,10 @@ function App() {
                 aria-hidden="true"
               ></i>
             </button>
-            {/* <UserProfile /> */}
+            <UserProfile />
 
             {/* Render ChoiceStage or ResultsScreen */}
-            {state.stage < 3 ? (
+            {/* {state.stage < 3 ? (
               <ChoiceStage
                 options={state.currentOptions}
                 onSelect={handleChoice}
@@ -170,7 +170,7 @@ function App() {
                 pathID={state.pathID}
                 sign="Sagittarius"
               />
-            )}
+            )} */}
           </>
         ) : (
           // Render AuthForm if user is not logged in
