@@ -1,12 +1,80 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function UserProfile() {
   const [userData, setUserData] = useState({});
-  const [birthLocationOption, setBirthLocationOption] = useState("postal");
+  const pobInputRef = useRef(null);
   const today = new Date().toISOString().split("T")[0];
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${
+      import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+    }&libraries=places`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (window.google && pobInputRef.current) {
+      const autocomplete = new window.google.maps.places.Autocomplete(
+        pobInputRef.current,
+        {
+          fields: ["name", "formatted_address", "geometry"],
+          minLength: 3,
+        }
+      );
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (place.geometry) {
+          setUserData((prevData) => ({
+            ...prevData,
+            pob: place.name || place.formatted_address,
+            pobFormatted: place.formatted_address,
+            latitude: place.geometry.location.lat(),
+            longitude: place.geometry.location.lng(),
+          }));
+        }
+      });
+    }
+  }, [window.google]);
+
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .pac-container {
+        background-color: #1f1f1f !important;
+        color: #ffffff !important;
+      }
+      .pac-item {
+        background-color: #242424 !important;
+        color: #ffffff !important;
+
+        & .pac-item-query {color: inherit;}
+      }
+      .pac-item:hover {
+        background-color: #333333 !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   return (
     <>
-      <form id="form-user_profile" className="grid gap-1">
+      <form id="form-user_profile" className="form-user_profile">
         <div className="form-group">
           <label htmlFor="user_profile-display_name">Display Name</label>
           <input
@@ -25,8 +93,8 @@ export default function UserProfile() {
           />
         </div>
         <div className="form-group">
-          <label>Gender Identity</label>
           <fieldset>
+            <legend>Gender Identity</legend>
             {[
               { value: "male", label: "Male" },
               { value: "female", label: "Female" },
@@ -35,7 +103,10 @@ export default function UserProfile() {
               { value: "undisclosed", label: "Prefer Not To Answer" },
             ].map(({ value, label }) => (
               <div key={value}>
-                <label htmlFor={`user_profile-gender_identity-${value}`}>
+                <label
+                  htmlFor={`user_profile-gender_identity-${value}`}
+                  className="margin-ie-half"
+                >
                   {label}
                 </label>
                 <input
@@ -78,6 +149,7 @@ export default function UserProfile() {
             type="time"
             id="user_profile-tob"
             name="tob"
+            step="1"
             value={userData.timeOfBirth || ""}
             onChange={(e) =>
               setUserData((prevData) => ({
@@ -88,98 +160,22 @@ export default function UserProfile() {
           />
         </div>
         <div className="form-group">
-          <label>Place of Birth</label>
-          <fieldset>
-            {[
-              { value: "postal", label: "Postal/Zip Code" },
-              {
-                value: "city",
-                label: "City, State/Province, Country or Address",
-              },
-              { value: "coordinates", label: "Coordinates" },
-            ].map(({ value, label }) => (
-              <div key={value}>
-                <label htmlFor={`user_profile-pob_options-${value}`}>
-                  {label}
-                </label>
-                <input
-                  type="radio"
-                  id={`user_profile-pob_options-${value}`}
-                  name="pob-options"
-                  value={value}
-                  checked={birthLocationOption === value}
-                  onChange={() => setBirthLocationOption(value)}
-                />
-              </div>
-            ))}
-          </fieldset>
-        </div>
-        <div className="form-group">
-          {birthLocationOption === "postal" && (
-            <input
-              type="text"
-              placeholder="Postal/Zip Code"
-              value={userData.pobPostal || ""}
-              onChange={(e) =>
-                setUserData((prev) => ({
-                  ...prev,
-                  pobPostal: e.target.value,
-                }))
-              }
-            />
-          )}
+          <label htmlFor="user_profile-pob">Place of Birth</label>
 
-          {birthLocationOption === "city" && (
-            <>
-              <label htmlFor="user_profile-pob-city">
-                Enter the City, State/Province, and Country OR the Address you
-                were born
-              </label>
-              <input
-                type="text"
-                id="user_profile-pob-city"
-                placeholder="City, State, Country or Address"
-                value={userData.pobCity || ""}
-                onChange={(e) =>
-                  setUserData((prev) => ({
-                    ...prev,
-                    pobCity: e.target.value,
-                  }))
-                }
-              />
-            </>
-          )}
-
-          {birthLocationOption === "coordinates" && (
-            <>
-              <input
-                type="text"
-                inputMode="numeric"
-                placeholder="Latitude"
-                aria-label="Enter the Latitude of your Place of Birth"
-                value={userData.pobLatitude || ""}
-                onChange={(e) =>
-                  setUserData((prev) => ({
-                    ...prev,
-                    pobLatitude: e.target.value,
-                  }))
-                }
-              />
-              <input
-                type="text"
-                inputMode="numeric"
-                placeholder="Longitude"
-                aria-label="Enter the Longitude of your Place of Birth"
-                value={userData.pobLongitude || ""}
-                onChange={(e) =>
-                  setUserData((prev) => ({
-                    ...prev,
-                    pobLongitude: e.target.value,
-                  }))
-                }
-              />
-            </>
-          )}
+          <input
+            ref={pobInputRef}
+            type="text"
+            id="user_profile-pob"
+            placeholder="Location, address or coordinates"
+            aria-label="Enter your location of birth by address, city/state or province/country, or enter coordinates"
+            value={userData.pob || ""}
+            onChange={(e) =>
+              setUserData((prevData) => ({
+                ...prevData,
+                pob: e.target.value,
+              }))
+            }
+          />
         </div>
       </form>
     </>

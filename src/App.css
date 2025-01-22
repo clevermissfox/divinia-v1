@@ -199,8 +199,8 @@ button {
 }
 
 ::selection {
-  background-color: var(--clr-neutral-900);
-  color: var(--clr-neutral-100);
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-neutral-900);
 }
 
 .visually-hidden {
@@ -760,6 +760,26 @@ h3 {
   & > input {
     border: none;
     outline: none;
+  }
+}
+
+.form-user_profile {
+  display: grid;
+  gap: 1.5em;
+  accent-color: var(--clr-accent);
+
+  & :is(input:not(:is([type="radio"], [type="checkbox"])), fieldset) {
+    padding: 0.5em;
+    border-radius: var(--br-default);
+    margin-block-start: 0.25em;
+
+    &:is(input) {
+      outline-color: var(--clr-accent);
+    }
+
+    &:is(fieldset) {
+      border-color: currentColor;
+    }
   }
 }
 /* CONDITIONAL STYLES */
