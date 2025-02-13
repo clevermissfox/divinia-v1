@@ -17,6 +17,7 @@ const initialState = {
   choices: [],
   currentOptions: allOptions,
   pathID: null,
+  //make sure we set pathID with every choice made to get the correct narrative
 };
 
 function reducer(state, action) {
@@ -63,7 +64,6 @@ function getNextOptions(currentOptions, choice) {
 
 function getPathID(choices) {
   const lastChoice = choices[choices.length - 1]; // Get the last choice made by the user
-  console.log("Last Choice:", lastChoice); // Log the last choice
 
   // Search through all options and their nextOptions
   for (const option of allOptions) {
@@ -90,36 +90,17 @@ function getPathID(choices) {
   return null; // Return null if no matching option is found
 }
 
-// function getNextOptions(stage, choices) {
-//   if (stage === 1) {
-//     console.log(allOptions[1][choices[0]]);
-//     return allOptions[1][choices[0]];
-//   } else if (stage === 2) {
-//     const firstChoice = choices[0];
-//     const secondChoice = choices[1];
-//     const thirdOptions = allOptions[2][firstChoice];
-//     const matchingObject = thirdOptions.find(
-//       (obj) => Object.keys(obj)[0] === secondChoice
-//     );
-//     return matchingObject ? matchingObject[secondChoice] : [];
-//   }
-//   return [];
-// }
-
-{
-  /* Handle user sign out */
-}
+// Handle user sign out
 function handleSignOut() {
   signOut(auth).catch((error) => {
     console.error("Error signing out:", error);
   });
 }
 
+// handle auth form submission
 function handleSubmit(e) {
   e.preventDefault();
   const formData = new FormData(e.target);
-
-  console.log("form submitted", formData);
 }
 
 function App() {
@@ -157,9 +138,8 @@ function App() {
               ></i>
             </button>
             <UserProfile />
-
-            {/* Render ChoiceStage or ResultsScreen */}
-            {/* {state.stage < 3 ? (
+            {/* Render ChoiceStage or ResultsScreen
+            {state.stage < 3 ? (
               <ChoiceStage
                 options={state.currentOptions}
                 onSelect={handleChoice}
@@ -170,13 +150,13 @@ function App() {
                 pathID={state.pathID}
                 sign="Sagittarius"
               />
-            )} */}
+            )}*/}
           </>
         ) : (
           // Render AuthForm if user is not logged in
           <>
-            <h2>Divinia</h2>
-            <p>Where Choice Meets Destiny...</p>
+            <h2 className="uppercase body-weight ls-2">Divinia</h2>
+            <p className="lowercase thin">Where Choice Meets Destiny...</p>
             <SymbolWheel />
             {/* <LandingPage /> */}
             <div className="margin-bs-1">

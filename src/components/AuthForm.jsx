@@ -61,7 +61,7 @@ export default function AuthForm({ isSignUp = false }) {
   return (
     <form className="form-auth grid gap-1" onSubmit={handleSubmit}>
       <div className="form-field">
-        <label htmlFor="email" className="small">
+        <label htmlFor="email" className="small lowercase">
           Enter your Email
         </label>
         <div className="input-wrapper margin-bs-quarter padding-half br-default">
@@ -77,7 +77,7 @@ export default function AuthForm({ isSignUp = false }) {
         </div>
       </div>
       <div className="form-field">
-        <label htmlFor="password" className="small">
+        <label htmlFor="password" className="small lowercase">
           Enter your password
         </label>
         <div className="input-wrapper row gap-1 margin-bs-quarter padding-half br-default">

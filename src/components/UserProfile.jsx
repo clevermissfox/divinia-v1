@@ -48,6 +48,7 @@ export default function UserProfile() {
     }
   }, [window.google]);
 
+  // style the google autocomplete dropdown
   useEffect(() => {
     const style = document.createElement("style");
     style.innerHTML = `
@@ -93,8 +94,30 @@ export default function UserProfile() {
           />
         </div>
         <div className="form-group">
-          <fieldset>
-            <legend>Gender Identity</legend>
+          <label htmlFor="user_profile-gender_identity">Gender Identity</label>
+          <select
+            id="user_profile-gender_identity"
+            name="gender_identity"
+            value={userData.genderIdentity}
+            data-hasValue={
+              userData.genderIdentity && userData.genderIdentity !== "hidden"
+                ? "true"
+                : "false"
+            }
+            required
+            onChange={(e) =>
+              setUserData((prevData) => ({
+                ...prevData,
+                genderIdentity: e.target.value,
+              }))
+            }
+          >
+            {/* dont load google api until user focuses into the autocomplete; i think my testing is using up my quota ? */}
+            {/* on safari there are padding issues and the 'select gender identity' is a selectable option. dont allow form submit and style user-invalid if thats the selected value*/}
+            {/* see if i can hook into shadowe dom to style the 'placeholders' for select, date of birth and time of birth; or adjust input placeholders  */}
+            <option value="hidden" hidden>
+              Select Gender Identity
+            </option>
             {[
               { value: "male", label: "Male" },
               { value: "female", label: "Female" },
@@ -102,29 +125,11 @@ export default function UserProfile() {
               { value: "other", label: "Other" },
               { value: "undisclosed", label: "Prefer Not To Answer" },
             ].map(({ value, label }) => (
-              <div key={value}>
-                <label
-                  htmlFor={`user_profile-gender_identity-${value}`}
-                  className="margin-ie-half"
-                >
-                  {label}
-                </label>
-                <input
-                  type="radio"
-                  id={`user_profile-gender_identity-${value}`}
-                  name="gender_identity"
-                  value={value}
-                  checked={userData.genderIdentity === value}
-                  onChange={(e) =>
-                    setUserData((prevData) => ({
-                      ...prevData,
-                      genderIdentity: e.target.value,
-                    }))
-                  }
-                />
-              </div>
+              <option key={value} value={value}>
+                {label}
+              </option>
             ))}
-          </fieldset>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="user_profile-dob">Date of Birth</label>

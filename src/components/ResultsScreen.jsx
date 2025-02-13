@@ -7,13 +7,12 @@ export default function ResultsScreen({ sign, choices, pathID }) {
 
   return (
     <>
-      <h1 className="ta-cen body-weight">Your results are...</h1>
-      <div className="margin-bs-1">
+      <div>
         {result ? ( // Check if a result was found
           <div className="card">
             {sign && (
               <>
-                <h2 className="uppercase ls-2 ta-cen">{sign}</h2>
+                <h1 className="uppercase ls-2 ta-cen body-weight">{sign}</h1>
                 <IconsSigns
                   id={sign}
                   width={80}
@@ -22,22 +21,18 @@ export default function ResultsScreen({ sign, choices, pathID }) {
                 />
               </>
             )}
-            <p className="margin-bs-1half">
+            <div className="margin-bs-2">
               <span className="lg thin ls-1">Your choices:</span>
-              <br /> {choicesString}...
-            </p>
-            <p className="margin-bs-1">
+              <p>{choicesString}...</p>
+            </div>
+            <div className="margin-bs-1half">
               <span className="lg thin ls-1">Horoscope:</span>
-              <br /> {result.horoscope}
-            </p>
-            <p className="margin-bs-1">
-              <span className="lg thin ls-1">Key Dates:</span>
-              <br /> {result.keyDates}
-            </p>
-            <p className="margin-bs-1">
-              <span className="lg thin ls-1">Action Steps:</span>
-              <br /> {result.actionSteps}
-            </p>
+              {result.horoscope.split("\n").map((text, index) => (
+                <p key={index} className={index > 0 && "margin-bs-1"}>
+                  {text.trim()}
+                </p>
+              ))}
+            </div>
           </div>
         ) : (
           <p>No results found.</p> // Handle case where no result matches

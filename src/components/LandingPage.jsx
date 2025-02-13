@@ -14,7 +14,7 @@ export default function LandingPage() {
   };
   return (
     <>
-      <h1>Divinia</h1>
+      <h1 className="uppercase body-weight ls-1">Divinia</h1>
       <p>Where Choice Meets Destiny</p>
       <div className="row gap-1 jc-cen margin-bs-1">
         <button onClick={signInWithGoogle} className="btn btn-secondary ">

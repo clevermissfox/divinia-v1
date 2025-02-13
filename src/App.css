@@ -37,6 +37,7 @@
   --default-trans-dur: 400ms;
   --timing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
+  /* INHERITED */
   interpolate-size: allow-keywords;
 }
 
@@ -47,8 +48,6 @@ html {
 /* @media (prefers-color-scheme: dark) {
     :root {
         --clr-primary: #;
-        --clr-neutral-100: #FFF;
-        --clr-neutral-900: #000;
 
         --clr-bg-body: #;
         --clr-bg-card: #;
@@ -69,18 +68,14 @@ html {
   } */
 
 @media (prefers-reduced-motion: no-preference) {
-  *,
-  *:before,
-  *:after {
+  :is(*, *:before, *:after, #idForSpecificity) {
     scroll-behavior: smooth;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *:before,
-  *:after {
-    transition-duration: 1ms;
+  :is(*, *:before, *:after, #idForSpecificity) {
+    animation-duration: 0ms;
   }
 }
 
@@ -370,6 +365,14 @@ button {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 .underline {
@@ -768,18 +771,19 @@ h3 {
   gap: 1.5em;
   accent-color: var(--clr-accent);
 
-  & :is(input:not(:is([type="radio"], [type="checkbox"])), fieldset) {
+  & :is(input:not(:is([type="radio"], [type="checkbox"])), select) {
     padding: 0.5em;
     border-radius: var(--br-default);
     margin-block-start: 0.25em;
+    outline-color: var(--clr-accent);
+  }
+  & :is(select[data-hasValue="false"]) {
+    color: darkgrey;
+    border-color: canvasText;
+  }
 
-    &:is(input) {
-      outline-color: var(--clr-accent);
-    }
-
-    &:is(fieldset) {
-      border-color: currentColor;
-    }
+  & options {
+    font: inherit;
   }
 }
 /* CONDITIONAL STYLES */
