@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Choice from "./Choice";
 import Anthropic from "@anthropic-ai/sdk";
 
-export default function ChoiceStage({ options, onSelect }) {
+export default function ChoiceStage({ options, narrative, onSelect }) {
   if (!options) {
     return <p>No options available</p>;
   }
@@ -33,6 +33,18 @@ export default function ChoiceStage({ options, onSelect }) {
   return (
     <>
       <h1 className="ta-cen body-weight ls-1">Make your choice...</h1>
+      <div className="narrative-wrapper">
+        {narrative.split("\n").map((text, index) => (
+          <p
+            key={index}
+            className={
+              index === 0 ? "margin-bs-1 ta-cen" : "margin-bs-half lg ta-cen"
+            }
+          >
+            {text.trim()}
+          </p>
+        ))}
+      </div>
       {/* <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -42,7 +54,7 @@ export default function ChoiceStage({ options, onSelect }) {
         <input type="text" id="input" />
         <button type="submit">Call Claude</button>
       </form> */}
-      <ul className="choices-list margin-bs-1 row gap-1 fw-wrap">
+      <ul className="choices-list margin-bs-1half row gap-1 fw-wrap">
         {choicesToRender.map((option) => (
           <li key={option.id} className="choices-option card flex-1">
             <Choice

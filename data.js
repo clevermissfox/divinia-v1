@@ -289,82 +289,67 @@ const narratives = [
   {
     pathID: 0,
     narrative:
-      "You stand on an ancient stone platform, its surface etched with glowing zodiacal symbols. Above, the cosmos shows an impossible view - the sun blazes in one direction, a full moon hangs in another, and an infinite field of stars sparkles in the third. Three distinct paths stretch before you.",
-    tagline: "Which celestial path beckons to your spirit?",
+      "You stand on an ancient stone platform, its surface etched with glowing zodiacal symbols. Above, the cosmos shows an impossible view - the sun blazes in one direction, a full moon hangs in another, and an infinite field of stars sparkles in the third. Three distinct paths stretch before you.\nWhich celestial path beckons to your spirit?",
   },
   {
     pathID: 1,
     narrative:
-      "As you follow the Sunlit Path, golden light embraces you. Tiny motes of light dance around you as you walk forward. The path opens into a clearing where three distinct destinations await.",
-    tagline: "Which sanctuary calls to you?",
+      "As you follow the Sunlit Path, golden light embraces you. Tiny motes of light dance around you as you walk forward. The path opens into a clearing where three distinct destinations await.\nWhich sanctuary calls to you?",
   },
   {
     pathID: 2,
     narrative:
-      "Silvery moonlight filters through towering trees. The grove thrums with quiet energy, where shadows dance at the corner of your vision and the air feels thick with possibility. Luminescent flowers dot the landscape like earthbound stars, while the rustle leaves creates an ethereal melody.",
-    tagline: "Before you, three paths emerge through the silvered mist...",
+      "Silvery moonlight filters through towering trees. The grove thrums with quiet energy, where shadows dance at the corner of your vision and the air feels thick with possibility. Luminescent flowers dot the landscape like earthbound stars, while the rustle leaves creates an ethereal melody.\nBefore you, three paths emerge through the silvered mist...",
   },
   {
     pathID: 3,
     narrative:
-      "A crystalline stairway spirals upward into the infinite cosmos, each step shimmering with starlight. Constellations wheel overhead in impossible patterns, while shooting stars trace luminous paths through the void. The very air sparkles with cosmic energy, and each breath fills you with the vastness of space and the mysteries of the universe.",
-    tagline: "Three structures appear along the celestial path...",
+      "A crystalline stairway spirals upward into the infinite cosmos, each step shimmering with starlight. Constellations wheel overhead in impossible patterns, while shooting stars trace luminous paths through the void. The very air sparkles with cosmic energy, and each breath fills you with the vastness of space and the mysteries of the universe.\nThree structures appear along the celestial path...",
   },
   {
-    pathID: 111,
+    pathID: 11,
     narrative:
-      "Drawing aside the shimmering tent flap, you enter a space that defies dimensions - somehow both intimate and infinite. Incense spirals through air thick with mystery, carrying whispers of desert caravans and forgotten temples. Threads of gold catch lamplight like captured stars. Inside, three objects catch your attention, each seeming to hold its own story.",
-    tagline: "Which of these three treasures draws you to explore it further?",
+      "Drawing aside the shimmering tent flap, you enter a space that defies dimensions - somehow both intimate and infinite. Incense spirals through air thick with mystery, carrying whispers of desert caravans and forgotten temples. Threads of gold catch lamplight like captured stars. Inside, three objects catch your attention, each seeming to hold its own story.Which of these three treasures draws you to explore it further?",
   },
   {
-    pathID: 112,
+    pathID: 12,
     narrative:
-      "Directly ahead stands the Artisan's Workshop, its wide doors revealing a space alive with activity. The rhythmic sound of hammer on anvil mingles with the scent of fresh-cut wood and heated metal. Rays of sunlight illuminate floating wood shavings and metallic dust, while half-finished creations line the walls. This is a place where raw materials transform into objects of power and beauty.",
-    tagline:
-      "From this mystical vantage point, three distinct paths stretch before you...",
+      "Directly ahead stands the Artisan's Workshop, its wide doors revealing a space alive with activity. The rhythmic sound of hammer on anvil mingles with the scent of fresh-cut wood and heated metal. Rays of sunlight illuminate floating wood shavings and metallic dust, while half-finished creations line the walls. This is a place where raw materials transform into objects of power and beauty.\nFrom this mystical vantage point, three distinct paths stretch before you...",
   },
   {
-    pathID: 113,
+    pathID: 13,
     narrative:
-      "Stepping into the caravan, you enter a world of organized wonder. Scrolls and charts cascade from ceiling to floor, while brass instruments and delicate measuring tools gleam from wooden shelves. Glass cabinets hold curiosities from distant lands, and the air carries the comforting scent of old parchment and fragrant tea. Star charts and maps carpet every surface, their annotations hinting at undiscovered mysteries.",
-    tagline:
-      "Within this sanctuary of knowledge, three items draw your attention...",
+      "Stepping into the caravan, you enter a world of organized wonder. Scrolls and charts cascade from ceiling to floor, while brass instruments and delicate measuring tools gleam from wooden shelves. Glass cabinets hold curiosities from distant lands, and the air carries the comforting scent of old parchment and fragrant tea. Star charts and maps carpet every surface, their annotations hinting at undiscovered mysteries.\nWithin this sanctuary of knowledge, three items draw your attention...",
   },
   {
-    pathID: 211,
+    pathID: 21,
     narrative:
-      "The surface of the crystal pool is so still it appears solid in the moonlight. Iridescent mist hovers just above the water, creating halos around stones that circle the pool like ancient sentinels. The air feels charged with energy, while the depths of the pool shimmer and glow.",
-    tagline: "At the pool's edge, three objects catch the moonlight...",
+      "The surface of the crystal pool is so still it appears solid in the moonlight. Iridescent mist hovers just above the water, creating halos around stones that circle the pool like ancient sentinels. The air feels charged with energy, while the depths of the pool shimmer and glow.\nAt the pool's edge, three objects catch the moonlight...",
   },
   {
-    pathID: 212,
+    pathID: 22,
     narrative:
-      "Silvery water cascades down moonlit rocks, creating a veil of luminous mist that carries whispered echoes of ancient secrets. The falls sing with voices beyond comprehension, while a pool at the base swirls with ethereal patterns, reflecting fragments of wisdom.",
-    tagline: "Near the falls, three gifts present themselves...",
+      "Silvery water cascades down moonlit rocks, creating a veil of luminous mist that carries whispered echoes of ancient secrets. The falls sing with voices beyond comprehension, while a pool at the base swirls with ethereal patterns, reflecting fragments of wisdom.\nNear the falls, three gifts present themselves...",
   },
   {
-    pathID: 213,
+    pathID: 23,
     narrative:
-      "A colossal tree rises into the night sky, its ancient trunk wider than a house. Moonlight filters through its vast canopy, creating shifting patterns on the ground like liquid silver. Luminous moss spirals up its bark in mysterious glowing symbols. Even the shadows here feel alive with stored memories.",
-    tagline: "Among the tree's roots, three treasures reveal themselves...",
+      "A colossal tree rises into the night sky, its ancient trunk wider than a house. Moonlight filters through its vast canopy, creating shifting patterns on the ground like liquid silver. Luminous moss spirals up its bark in mysterious glowing symbols. Even the shadows here feel alive with stored memories.\nAmong the tree's roots, three treasures reveal themselves...",
   },
   {
-    pathID: 311,
+    pathID: 31,
     narrative:
-      "The domed Observatory hums with cosmic energy, its circular chamber alive with projected constellations. Brass mechanisms whir and click, tracking celestial bodies across the infinite void above. Through the open dome, stars seem close enough to touch, while the curved walls display illuminated maps of distant galaxies and mysterious astronomical phenomena.",
-    tagline: "Three tools of celestial study catch your eye...",
+      "The domed Observatory hums with cosmic energy, its circular chamber alive with projected constellations. Brass mechanisms whir and click, tracking celestial bodies across the infinite void above. Through the open dome, stars seem close enough to touch, while the curved walls display illuminated maps of distant galaxies and mysterious astronomical phenomena.\nThree tools of celestial study catch your eye...",
   },
   {
-    pathID: 312,
+    pathID: 32,
     narrative:
-      "Shelves laden with books spiral through the star-filled space. Constellations drift between the stacks like luminous bookmarks, while nebulae curl through reading nooks like cosmic incense. The air hums with centuries of celestial wisdom gathering like stardust.",
-    tagline: "Three items hover before you...",
+      "Shelves laden with books spiral through the star-filled space. Constellations drift between the stacks like luminous bookmarks, while nebulae curl through reading nooks like cosmic incense. The air hums with centuries of celestial wisdom gathering like stardust.\nThree items hover before you...",
   },
   {
-    pathID: 313,
+    pathID: 33,
     narrative:
-      "Perched among the stars, the hermitage seems to float in celestial space. Its simple wooden structure radiates peaceful energy, with paper lanterns casting warm light through translucent walls. Wind chimes sing softly, while aromatic herbs and incense create an atmosphere of tranquil contemplation. The space feels both ancient and timeless.",
-    tagline: "Within the hermitage, three items await your attention...",
+      "Perched among the stars, the hermitage seems to float in celestial space. Its simple wooden structure radiates peaceful energy, with paper lanterns casting warm light through translucent walls. Wind chimes sing softly, while aromatic herbs and incense create an atmosphere of tranquil contemplation. The space feels both ancient and timeless.\nWithin the hermitage, three items await your attention...",
   },
 ];
 

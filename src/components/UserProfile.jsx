@@ -5,49 +5,6 @@ export default function UserProfile() {
   const pobInputRef = useRef(null);
   const today = new Date().toISOString().split("T")[0];
 
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${
-      import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-    }&libraries=places`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (window.google && pobInputRef.current) {
-      const autocomplete = new window.google.maps.places.Autocomplete(
-        pobInputRef.current,
-        {
-          fields: ["name", "formatted_address", "geometry"],
-          minLength: 3,
-        }
-      );
-
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        if (place.geometry) {
-          setUserData((prevData) => ({
-            ...prevData,
-            pob: place.name || place.formatted_address,
-            pobFormatted: place.formatted_address,
-            latitude: place.geometry.location.lat(),
-            longitude: place.geometry.location.lng(),
-          }));
-        }
-      });
-    }
-  }, [window.google]);
-
   // style the google autocomplete dropdown
   useEffect(() => {
     const style = document.createElement("style");
@@ -73,6 +30,55 @@ export default function UserProfile() {
     };
   }, []);
 
+  const loadGoogleMapsScript = () => {
+    if (!window.google) {
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${
+        import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+      }&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+
+      // Cleanup function
+      return () => {
+        if (script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
+        // Optionally, you might want to clean up the google object
+        delete window.google;
+      };
+    } else {
+      initializeAutocomplete();
+      return () => {}; // Return empty cleanup function if script was already loaded
+    }
+  };
+
+  const initializeAutocomplete = () => {
+    if (window.google && pobInputRef.current) {
+      const autocomplete = new window.google.maps.places.Autocomplete(
+        pobInputRef.current,
+        {
+          fields: ["name", "formatted_address", "geometry"],
+          minLength: 3,
+        }
+      );
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (place.geometry) {
+          setUserData((prevData) => ({
+            ...prevData,
+            pob: place.name || place.formatted_address,
+            pobFormatted: place.formatted_address,
+            latitude: place.geometry.location.lat(),
+            longitude: place.geometry.location.lng(),
+          }));
+        }
+      });
+    }
+  };
+
   return (
     <>
       <form id="form-user_profile" className="form-user_profile">
@@ -95,41 +101,46 @@ export default function UserProfile() {
         </div>
         <div className="form-group">
           <label htmlFor="user_profile-gender_identity">Gender Identity</label>
-          <select
-            id="user_profile-gender_identity"
-            name="gender_identity"
-            value={userData.genderIdentity}
-            data-hasValue={
-              userData.genderIdentity && userData.genderIdentity !== "hidden"
-                ? "true"
-                : "false"
-            }
-            required
-            onChange={(e) =>
-              setUserData((prevData) => ({
-                ...prevData,
-                genderIdentity: e.target.value,
-              }))
-            }
-          >
-            {/* dont load google api until user focuses into the autocomplete; i think my testing is using up my quota ? */}
-            {/* on safari there are padding issues and the 'select gender identity' is a selectable option. dont allow form submit and style user-invalid if thats the selected value*/}
-            {/* see if i can hook into shadowe dom to style the 'placeholders' for select, date of birth and time of birth; or adjust input placeholders  */}
-            <option value="hidden" hidden>
-              Select Gender Identity
-            </option>
-            {[
-              { value: "male", label: "Male" },
-              { value: "female", label: "Female" },
-              { value: "nonbinary", label: "Non-Binary" },
-              { value: "other", label: "Other" },
-              { value: "undisclosed", label: "Prefer Not To Answer" },
-            ].map(({ value, label }) => (
-              <option key={value} value={value}>
-                {label}
+          <div className="custom-select">
+            <select
+              id="user_profile-gender_identity"
+              name="gender_identity"
+              value={userData.genderIdentity}
+              data-hasvalue={
+                userData.genderIdentity && userData.genderIdentity !== "hidden"
+                  ? "true"
+                  : "false"
+              }
+              required
+              onChange={(e) => {
+                if (e.target.value !== "hidden") {
+                  setUserData((prevData) => ({
+                    ...prevData,
+                    genderIdentity: e.target.value,
+                  }));
+                  e.target.setCustomValidity("");
+                } else {
+                  e.target.setCustomValidity("Please select a gender identity");
+                }
+                e.target.reportValidity();
+              }}
+            >
+              <option value="hidden" hidden>
+                Select Gender Identity
               </option>
-            ))}
-          </select>
+              {[
+                { value: "male", label: "Male" },
+                { value: "female", label: "Female" },
+                { value: "nonbinary", label: "Non-Binary" },
+                { value: "other", label: "Other" },
+                { value: "undisclosed", label: "Prefer Not To Answer" },
+              ].map(({ value, label }) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="user_profile-dob">Date of Birth</label>
@@ -140,6 +151,9 @@ export default function UserProfile() {
             max={today}
             required
             value={userData.dob || ""}
+            data-hasvalue={
+              userData.dob && userData.dob !== "" ? "true" : "false"
+            }
             onChange={(e) =>
               setUserData((prevData) => ({
                 ...prevData,
@@ -156,6 +170,11 @@ export default function UserProfile() {
             name="tob"
             step="1"
             value={userData.timeOfBirth || ""}
+            data-hasvalue={
+              userData.timeOfBirth && userData.timeOfBirth !== ""
+                ? "true"
+                : "false"
+            }
             onChange={(e) =>
               setUserData((prevData) => ({
                 ...prevData,
@@ -180,6 +199,7 @@ export default function UserProfile() {
                 pob: e.target.value,
               }))
             }
+            onFocus={loadGoogleMapsScript}
           />
         </div>
       </form>

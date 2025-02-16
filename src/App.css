@@ -29,7 +29,8 @@
   --clr-neutral-900: oklch(0% 0 0);
 
   --clr-bg-body: #242424;
-  --clr-bg-card: #2c2c2c;
+  --clr-bg-card: oklch(100% 0 0 / 5%);
+  --clr-placeholder: color-mix(in oklch, var(--clr-primary), transparent 50%);
 
   /* NUMERIC VALUES */
   --padding-default: 1.5em;
@@ -189,8 +190,7 @@ button {
 }
 
 ::placeholder {
-  color: inherit;
-  opacity: 0.6;
+  color: var(--clr-placeholder);
 }
 
 ::selection {
@@ -673,7 +673,7 @@ h3 {
 
 .wrapper {
   margin-inline: auto;
-  width: min(100%, 100ch);
+  width: min(100%, 90ch);
 }
 
 .card {
@@ -681,12 +681,15 @@ h3 {
   padding: var(--padding-default);
   border-radius: var(--br-default);
   border: 1px solid var(--clr-accent-alpha);
-  max-width: 60ch;
 }
 
-/* PROJECT SPECIFIC STYLES */
+/*
+*MARK: PROJECT SPECIFIC STYLES
+*/
 
-/* BUTTONS AND FORMS */
+/*
+*MARK: INTERACTIVE ELEMENTS
+*/
 :is(.btn) {
   --_btn-bg: none;
   padding: 0.5em 1.2em;
@@ -720,16 +723,13 @@ h3 {
   border-color: currentColor;
 }
 
-.btn-choice {
-  display: grid;
-  gap: 1em;
-  justify-content: center;
+.choices-option.card {
+  min-width: 25ch;
+}
 
-  & .img-wrapper {
-    width: min(100%, 12ch);
-    border-radius: 0.25em;
-    overflow: hidden;
-  }
+.choices-option button {
+  display: block;
+  margin-inline: auto;
 }
 
 .btn-signout {
@@ -777,8 +777,57 @@ h3 {
     margin-block-start: 0.25em;
     outline-color: var(--clr-accent);
   }
-  & :is(select[data-hasValue="false"]) {
-    color: darkgrey;
+
+  .custom-select {
+    --_size: 1rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: [select-start] auto [arrow-start] var(--_size) [arrow-end select-end];
+    grid-template-rows: [select-start before-start] 50% [before-end after-start] 50% [after-end select-end];
+    &::before,
+    &::after {
+      --_content: "\f0d8";
+      content: var(--_content);
+      font-family: var(--ff-secondary);
+      font-size: 0.8em;
+      font-weight: var(--fw-bold);
+      line-height: 0.5;
+      position: absolute;
+      left: 0;
+      pointer-events: none;
+      justify-self: start;
+    }
+
+    &::before {
+      grid-column: arrow;
+      grid-row: before;
+      align-self: end;
+      bottom: 0;
+    }
+
+    &::after {
+      --_content: "\f0d7";
+      grid-column: arrow;
+      grid-row: after;
+      align-self: start;
+      top: 0;
+    }
+
+    & :is(select) {
+      grid-area: select;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+  }
+
+  & :is(select:user-invalid) {
+    border-color: red;
+  }
+
+  & :is([data-hasvalue="false"]) {
+    /* for select, date, and time inputs that have no placeholder, i want the defaults to look like a placeholder */
+    color: var(--clr-placeholder);
     border-color: canvasText;
   }
 
@@ -786,7 +835,19 @@ h3 {
     font: inherit;
   }
 }
-/* CONDITIONAL STYLES */
+
+/*
+  *MARK: NONINTERACTIVE ELEMENTS
+*/
+
+.card-results.card {
+  width: min(100%, 60ch);
+  margin-inline: auto;
+}
+
+/*
+  *MARK: CONDITIONAL STYLES
+*/
 .wrapper:has(> ul.signs-list) {
   position: relative;
 
@@ -798,4 +859,6 @@ h3 {
     z-index: -3;
   }
 }
-/* MEDIA QUERIES */
+/*
+  *MARK: MEDIA QUERIES
+*/

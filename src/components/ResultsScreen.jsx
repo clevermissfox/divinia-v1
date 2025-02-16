@@ -9,7 +9,7 @@ export default function ResultsScreen({ sign, choices, pathID }) {
     <>
       <div>
         {result ? ( // Check if a result was found
-          <div className="card">
+          <div className="card card-results">
             {sign && (
               <>
                 <h1 className="uppercase ls-2 ta-cen body-weight">{sign}</h1>
@@ -28,7 +28,7 @@ export default function ResultsScreen({ sign, choices, pathID }) {
             <div className="margin-bs-1half">
               <span className="lg thin ls-1">Horoscope:</span>
               {result.horoscope.split("\n").map((text, index) => (
-                <p key={index} className={index > 0 && "margin-bs-1"}>
+                <p key={index} className={index > 0 ? "margin-bs-1" : ""}>
                   {text.trim()}
                 </p>
               ))}
