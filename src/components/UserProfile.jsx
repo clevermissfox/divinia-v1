@@ -89,6 +89,7 @@ export default function UserProfile() {
             id="user_profile-display_name"
             name="display_name"
             placeholder="Aurora"
+            autoComplete="nickname"
             required={true}
             value={userData.displayName || ""} // Provide a default value
             onChange={(e) =>
@@ -112,6 +113,7 @@ export default function UserProfile() {
                   : "false"
               }
               required
+              autoComplete="sex"
               onChange={(e) => {
                 if (e.target.value !== "hidden") {
                   setUserData((prevData) => ({
@@ -150,6 +152,7 @@ export default function UserProfile() {
             name="dob"
             max={today}
             required
+            autoComplete="bday"
             value={userData.dob || ""}
             data-hasvalue={
               userData.dob && userData.dob !== "" ? "true" : "false"

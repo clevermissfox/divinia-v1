@@ -12,6 +12,7 @@ import { narratives } from "../data";
 import IconsSigns from "./components/IconsSigns";
 import SymbolWheel from "./components/SymbolWheel";
 import UserProfile from "./components/UserProfile";
+import { updateFirebaseWithZodiacData } from "./utiliFunctions/updateFirebaseWithZodiacData";
 
 const initialState = {
   stage: 0,
@@ -170,7 +171,9 @@ function App() {
     console.log("stage", state.stage);
     console.log("pathID", state.pathID);
   }, [state.stage, state.pathID]);
-
+  useEffect(() => {
+    updateFirebaseWithZodiacData("SAG", allOptions);
+  }, []);
   return (
     <>
       <div className="wrapper">
@@ -189,7 +192,7 @@ function App() {
               ></i>
             </button>
             {/*  <UserProfile />
-            Render ChoiceStage or ResultsScreens */}
+             Render ChoiceStage or ResultsScreens*/}
             {state.stage < 3 ? (
               <ChoiceStage
                 options={state.currentOptions}
