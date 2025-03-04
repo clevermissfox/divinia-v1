@@ -12,7 +12,7 @@ import { narratives } from "../data";
 import IconsSigns from "./components/IconsSigns";
 import SymbolWheel from "./components/SymbolWheel";
 import UserProfile from "./components/UserProfile";
-import { updateFirebaseWithZodiacData } from "./utiliFunctions/updateFirebaseWithZodiacData";
+import { updateFirebaseWithZodiacData } from "./utiliFunctions/updateFirebaseWithChoiceData";
 
 const initialState = {
   stage: 0,
@@ -167,13 +167,21 @@ function App() {
     dispatch({ type: "MAKE_CHOICE", payload: choice });
   };
 
-  useEffect(() => {
-    console.log("stage", state.stage);
-    console.log("pathID", state.pathID);
-  }, [state.stage, state.pathID]);
+  // track and confirm stage, pathID, and testing to get choices
+  // useEffect(() => {
+  //   console.log("stage", state.stage);
+  //   console.log("pathID", state.pathID);
+  // }, [state.stage, state.pathID]);
   useEffect(() => {
     updateFirebaseWithZodiacData("SAG", allOptions);
   }, []);
+
+  // check whats in the auth.currentUser object
+  // useEffect(() => {
+  //   if (auth) {
+  //     console.log("currentUser", auth.currentUser);
+  //   }
+  // }, []);
   return (
     <>
       <div className="wrapper">
@@ -191,8 +199,8 @@ function App() {
                 aria-hidden="true"
               ></i>
             </button>
-            {/*  <UserProfile />
-             Render ChoiceStage or ResultsScreens*/}
+            {/* <UserProfile auth={auth} />
+              Render ChoiceStage or ResultsScreens*/}
             {state.stage < 3 ? (
               <ChoiceStage
                 options={state.currentOptions}

@@ -1,29 +1,29 @@
 export default function getZodiacSign(month, day) {
   switch (month) {
     case 1:
-      return day <= 19 ? "Capricorn" : "Aquarius";
+      return day <= 19 ? "capricorn" : "aquarius";
     case 2:
-      return day <= 18 ? "Aquarius" : "Pisces";
+      return day <= 18 ? "aquarius" : "pisces";
     case 3:
-      return day <= 20 ? "Pisces" : "Aries";
+      return day <= 20 ? "pisces" : "aries";
     case 4:
-      return day <= 19 ? "Aries" : "Taurus";
+      return day <= 19 ? "aries" : "taurus";
     case 5:
-      return day <= 20 ? "Taurus" : "Gemini";
+      return day <= 20 ? "taurus" : "gemini";
     case 6:
-      return day <= 20 ? "Gemini" : "Cancer";
+      return day <= 20 ? "gemini" : "cancer";
     case 7:
-      return day <= 22 ? "Cancer" : "Leo";
+      return day <= 22 ? "cancer" : "leo";
     case 8:
-      return day <= 22 ? "Leo" : "Virgo";
+      return day <= 22 ? "leo" : "virgo";
     case 9:
-      return day <= 22 ? "Virgo" : "Libra";
+      return day <= 22 ? "virgo" : "libra";
     case 10:
-      return day <= 22 ? "Libra" : "Scorpio";
+      return day <= 22 ? "libra" : "scorpio";
     case 11:
-      return day <= 21 ? "Scorpio" : "Sagittarius";
+      return day <= 21 ? "scorpio" : "sagittarius";
     case 12:
-      return day <= 21 ? "Sagittarius" : "Capricorn";
+      return day <= 21 ? "sagittarius" : "capricorn";
     default:
       return "Invalid month";
   }

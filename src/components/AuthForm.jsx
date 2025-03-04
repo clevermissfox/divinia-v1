@@ -113,6 +113,7 @@ export default function AuthForm({ isSignUp = false }) {
       <button type="submit" className="btn btn-submit">
         {isSignUp ? "Sign Up" : "Sign In"}
       </button>
+      {/* if isSignUp == false, dont forget 'forgot password' implementation */}
       {error && <p className="small margin-bs-1">{error}</p>}
     </form>
   );

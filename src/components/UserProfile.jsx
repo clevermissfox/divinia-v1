@@ -1,9 +1,67 @@
 import { useEffect, useRef, useState } from "react";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "../config/firebaseClient";
+import getZodiacSign from "../utiliFunctions/getZodiacSign";
 
-export default function UserProfile() {
+export default function UserProfile({ auth }) {
   const [userData, setUserData] = useState({});
   const pobInputRef = useRef(null);
   const today = new Date().toISOString().split("T")[0];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const user = auth.currentUser;
+      if (!user) throw new Error("User not authenticated");
+      const [year, month, day] = userData.dob.split("-");
+      const sign = getZodiacSign(parseInt(month), parseInt(day));
+
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          ...userData,
+          sign,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
+      console.log(userData);
+    } catch (err) {
+      alert(
+        "Error: please refresh the page and try again. If problem persists, contact us at diviniaapp@gmail.com"
+      );
+      console.error(
+        "There was a problem in handleSubmit; Error saving profile",
+        err.message
+      );
+    }
+  };
+
+  // grab the user data from firebase if it exists and populate the form for easy editing
+  useEffect(() => {
+    const loadUserData = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setUserData({
+          displayName: data.displayName || "",
+          dob: data.dob || "",
+          genderIdentity: data.genderIdentity || "hidden",
+          tob: data.timeOfBirth || "",
+          pob: data.pob || "",
+          pobFormatted: data.pobFormatted || "",
+        });
+      }
+    };
+
+    loadUserData();
+  }, [auth.currentUser]);
 
   // style the google autocomplete dropdown
   useEffect(() => {
@@ -29,15 +87,45 @@ export default function UserProfile() {
       document.head.removeChild(style);
     };
   }, []);
+  // load the google maps script and append it but its async so its not loading right away
+  // const loadGoogleMapsScript = async () => {
+  //   if (!window.google) {
+  //     const script = document.createElement("script");
+  //     script.src = `https://maps.googleapis.com/maps/api/js?key=${
+  //       import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+  //     }&libraries=places`;
+  //     script.async = true;
+  //     script.defer = true;
+  //     document.body.appendChild(script);
 
-  const loadGoogleMapsScript = () => {
-    if (!window.google) {
+  //     // Cleanup function
+  //     return () => {
+  //       if (script.parentNode) {
+  //         script.parentNode.removeChild(script);
+  //       }
+  //       // Optionally, you might want to clean up the google object
+  //       delete window.google;
+  //     };
+  //   } else {
+  //     initializeAutocomplete();
+  //     return () => {}; // Return empty cleanup function if script was already loaded
+  //   }
+  // };
+
+  const loadGoogleMapsScript = async () => {
+    if (window.google) return;
+
+    return new Promise((resolve, reject) => {
       const script = document.createElement("script");
       script.src = `https://maps.googleapis.com/maps/api/js?key=${
         import.meta.env.VITE_GOOGLE_MAPS_API_KEY
       }&libraries=places`;
       script.async = true;
       script.defer = true;
+
+      script.onload = resolve;
+      script.onerror = reject;
+
       document.body.appendChild(script);
 
       // Cleanup function
@@ -45,13 +133,9 @@ export default function UserProfile() {
         if (script.parentNode) {
           script.parentNode.removeChild(script);
         }
-        // Optionally, you might want to clean up the google object
         delete window.google;
       };
-    } else {
-      initializeAutocomplete();
-      return () => {}; // Return empty cleanup function if script was already loaded
-    }
+    });
   };
 
   const initializeAutocomplete = () => {
@@ -79,10 +163,26 @@ export default function UserProfile() {
     }
   };
 
+  // when place of birth input it focused, load the google maps script
+  const handlePobFocus = async () => {
+    try {
+      await loadGoogleMapsScript();
+      initializeAutocomplete();
+    } catch (error) {
+      console.error("Autocomplete failed:", error);
+    }
+  };
+
   return (
     <>
-      <form id="form-user_profile" className="form-user_profile">
+      <form
+        id="form-user_profile"
+        className="form-user_profile"
+        autoComplete="on"
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <div className="form-group">
+          {/* dont forget an image input for their avatar */}
           <label htmlFor="user_profile-display_name">Display Name</label>
           <input
             type="text"
@@ -91,6 +191,7 @@ export default function UserProfile() {
             placeholder="Aurora"
             autoComplete="nickname"
             required={true}
+            aria-required={true}
             value={userData.displayName || ""} // Provide a default value
             onChange={(e) =>
               setUserData((prevData) => ({
@@ -112,8 +213,8 @@ export default function UserProfile() {
                   ? "true"
                   : "false"
               }
-              required
-              autoComplete="sex"
+              required={true}
+              aria-required={true}
               onChange={(e) => {
                 if (e.target.value !== "hidden") {
                   setUserData((prevData) => ({
@@ -151,7 +252,8 @@ export default function UserProfile() {
             id="user_profile-dob"
             name="dob"
             max={today}
-            required
+            required={true}
+            aria-required={true}
             autoComplete="bday"
             value={userData.dob || ""}
             data-hasvalue={
@@ -172,16 +274,14 @@ export default function UserProfile() {
             id="user_profile-tob"
             name="tob"
             step="1"
-            value={userData.timeOfBirth || ""}
+            value={userData.tob || ""}
             data-hasvalue={
-              userData.timeOfBirth && userData.timeOfBirth !== ""
-                ? "true"
-                : "false"
+              userData.tob && userData.tob !== "" ? "true" : "false"
             }
             onChange={(e) =>
               setUserData((prevData) => ({
                 ...prevData,
-                timeOfBirth: e.target.value,
+                tob: e.target.value,
               }))
             }
           />
@@ -202,9 +302,12 @@ export default function UserProfile() {
                 pob: e.target.value,
               }))
             }
-            onFocus={loadGoogleMapsScript}
+            onFocus={handlePobFocus}
           />
         </div>
+        <button type="submit" className="btn btn-submit">
+          Save Profile
+        </button>
       </form>
     </>
   );
