@@ -67,42 +67,27 @@ function getNextOptions(currentOptions, choice) {
   return null;
 }
 
+// Updated getPathID function
 function getPathID(choices) {
-  if (choices.length === 0) return 0; // Initial state
+  let pathID = 0;
+  let currentLevel = allOptions;
 
-  if (choices.length === 1) {
-    // First choice
-    const firstChoice = choices[0];
-    const option = allOptions.find((opt) => opt.scene === firstChoice);
-    return option ? option.id : null;
+  for (const choice of choices) {
+    const foundOption = currentLevel.find((option) => option.scene === choice);
+    if (!foundOption) return null;
+
+    // Calculate the ID multiplier based on choice depth
+    const idLength = String(foundOption.id).length;
+    const multiplier = Math.pow(10, idLength);
+
+    // Build cumulative pathID: previous value * multiplier + new ID
+    pathID = pathID * multiplier + foundOption.id;
+
+    // Move to next level of options
+    currentLevel = foundOption.nextOptions || [];
   }
 
-  if (choices.length === 2) {
-    // Second choice
-    const [firstChoice, secondChoice] = choices;
-    const option = allOptions.find((opt) => opt.scene === firstChoice);
-    if (option && option.nextOptions) {
-      const subOption = option.nextOptions.find(
-        (opt) => opt.scene === secondChoice
-      );
-      return subOption ? subOption.id : null;
-    }
-  }
-
-  // Third choice (existing logic)
-  const lastChoice = choices[choices.length - 1];
-  for (const option of allOptions) {
-    for (const nextOption of option.nextOptions || []) {
-      const deeperFoundOption = nextOption.nextOptions?.find(
-        (deepNextOption) => deepNextOption.scene === lastChoice
-      );
-      if (deeperFoundOption) {
-        return deeperFoundOption.pathID;
-      }
-    }
-  }
-
-  return null; // If no matching option is found
+  return pathID;
 }
 
 // function getPathID(choices) {
@@ -168,10 +153,10 @@ function App() {
   };
 
   // track and confirm stage, pathID, and testing to get choices
-  // useEffect(() => {
-  //   console.log("stage", state.stage);
-  //   console.log("pathID", state.pathID);
-  // }, [state.stage, state.pathID]);
+  useEffect(() => {
+    console.log("stage", state.stage);
+    console.log("pathID", state.pathID);
+  }, [state.stage, state.pathID]);
   useEffect(() => {
     updateFirebaseWithZodiacData("SAG", allOptions);
   }, []);
